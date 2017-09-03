@@ -27,6 +27,10 @@
 				android:name=".BirthdayScannerService"
 				android:exported="false"/>
 
+		<service
+				android:name=".ReminderService"
+				android:exported="false"/>
+
 	</application>
 
 </manifest>

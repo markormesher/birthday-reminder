@@ -14,7 +14,6 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.markormesher.birthdayreminder.data.DbHelper
 import uk.co.markormesher.birthdayreminder.extensions.checkPermissions
-import uk.co.markormesher.birthdayreminder.extensions.log
 import uk.co.markormesher.birthdayreminder.extensions.requestPermissions
 
 val PERMISSIONS = arrayOf(
@@ -76,7 +75,7 @@ class MainActivity: AppCompatActivity() {
 			}
 
 			R.id.menu_settings -> {
-				log("Settings")
+                startService(Intent(this, ReminderService::class.java))
 				return true
 			}
 		}
