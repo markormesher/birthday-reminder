@@ -4,6 +4,8 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		package="uk.co.markormesher.birthdayreminder">
 
+	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+
 	<application
 			tools:ignore="GoogleAppIndexingWarning"
 			android:allowBackup="true"
@@ -20,6 +22,10 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
+
+		<service
+				android:name=".BirthdayScannerService"
+				android:exported="false"/>
 
 	</application>
 
