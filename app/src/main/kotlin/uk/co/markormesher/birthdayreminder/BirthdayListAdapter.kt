@@ -40,7 +40,6 @@ class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<Bi
 	}
 
 	class BirthdayViewHolder(v: View): RecyclerView.ViewHolder(v) {
-		val rootView = v
 		val titleView = v.title!!
 		val detailView = v.detail!!
 	}

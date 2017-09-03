@@ -4,6 +4,12 @@
 		xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<item
+			android:id="@+id/menu_rescan"
+			android:title="@string/menu_rescan"
+			android:icon="@drawable/ic_refresh_white_24dp"
+			app:showAsAction="ifRoom"/>
+
+	<item
 			android:id="@+id/menu_settings"
 			android:title="@string/menu_settings"
 			android:icon="@drawable/ic_settings_white_24dp"

@@ -69,9 +69,16 @@ class MainActivity: AppCompatActivity() {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		if (item?.itemId == R.id.menu_settings) {
-			log("Settings")
-			return true
+		when (item?.itemId) {
+			R.id.menu_rescan -> {
+				startService(Intent(this, BirthdayScannerService::class.java))
+				return true
+			}
+
+			R.id.menu_settings -> {
+				log("Settings")
+				return true
+			}
 		}
 
 		return super.onOptionsItemSelected(item)
