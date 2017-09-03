@@ -74,6 +74,7 @@ class DbHelper private constructor(context: Context): SQLiteOpenHelper(context, 
 			} while (cursor.moveToNext())
 		}
 		cursor.close()
+		birthdays.sortBy { it.nextOccurrence() }
 		return birthdays
 	}
 

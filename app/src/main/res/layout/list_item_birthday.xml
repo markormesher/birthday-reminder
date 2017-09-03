@@ -10,14 +10,14 @@
 		>
 
 	<TextView
-			android:id="@+id/name"
+			android:id="@+id/title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			style="@style/TextAppearance.AppCompat.Medium"
 			/>
 
 	<TextView
-			android:id="@+id/date"
+			android:id="@+id/detail"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			style="@style/TextAppearance.AppCompat.Small"

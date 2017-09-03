@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_item_birthday.view.*
+import org.joda.time.Years
 import uk.co.markormesher.birthdayreminder.data.Birthday
 
 class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<BirthdayListAdapter.BirthdayViewHolder>() {
 
 	private val layoutInflater by lazy { LayoutInflater.from(context)!! }
+	private val dateFormat = "dd MMM yyyy"
 
 	val birthdays = ArrayList<Birthday>()
 
@@ -22,14 +24,25 @@ class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<Bi
 
 	override fun onBindViewHolder(holder: BirthdayListAdapter.BirthdayViewHolder, position: Int) {
 		val birthday = birthdays[position]
-		holder.nameView.text = birthday.name
-		holder.dateView.text = "${birthday.year}-${birthday.month}-${birthday.date}"
+
+		val dateString = birthday.nextOccurrence().toString(dateFormat)
+		var age = 0
+		if (birthday.year > 0) {
+			age = Years.yearsBetween(birthday.asDate(), birthday.nextOccurrence()).years
+        }
+
+		holder.titleView.text = birthday.name
+		if (age > 0) {
+			holder.detailView.text = context.getString(R.string.birthday_detail_with_age, dateString, age)
+        } else {
+			holder.detailView.text = context.getString(R.string.birthday_detail_without_age, dateString)
+        }
 	}
 
 	class BirthdayViewHolder(v: View): RecyclerView.ViewHolder(v) {
 		val rootView = v
-		val nameView = v.name!!
-		val dateView = v.date!!
+		val titleView = v.title!!
+		val detailView = v.detail!!
 	}
 
 }
