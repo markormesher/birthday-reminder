@@ -57,11 +57,7 @@ class ReminderService: IntentService("ReminderService") {
             Notification.Builder(applicationContext)
         }
 
-        val title = when (daysUntilNextOccurrence) {
-            0 -> "${birthday.name}'s birthday is today"
-            1 -> "${birthday.name}'s birthday is tomorrow"
-            else -> "${birthday.name}'s birthday is in $daysUntilNextOccurrence days"
-        }
+        val title = "${birthday.name}'s birthday is ${formatFutureDate(birthday.nextOccurrence(), false)}"
 
         val subtitle = if (age > 0) {
             if (daysUntilNextOccurrence == 0) {

@@ -4,7 +4,8 @@
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingTop="@dimen/space_small"
+		android:paddingTop="@dimen/space_micro"
+		android:paddingBottom="@dimen/space_micro"
 		android:paddingLeft="@dimen/space_small"
 		android:paddingRight="@dimen/space_small"
 		>
@@ -13,14 +14,14 @@
 			android:id="@+id/title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			style="@style/TextAppearance.AppCompat.Medium"
+			style="@style/TextAppearance.AppCompat.Title"
 			/>
 
 	<TextView
 			android:id="@+id/detail"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			style="@style/TextAppearance.AppCompat.Small"
+			style="@style/TextAppearance.AppCompat.Subhead"
 			/>
 
 </LinearLayout>

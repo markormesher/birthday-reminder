@@ -12,7 +12,6 @@ import uk.co.markormesher.birthdayreminder.data.Birthday
 class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<BirthdayListAdapter.BirthdayViewHolder>() {
 
 	private val layoutInflater by lazy { LayoutInflater.from(context)!! }
-	private val dateFormat = "dd MMM yyyy"
 
 	val birthdays = ArrayList<Birthday>()
 
@@ -25,7 +24,7 @@ class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<Bi
 	override fun onBindViewHolder(holder: BirthdayListAdapter.BirthdayViewHolder, position: Int) {
 		val birthday = birthdays[position]
 
-		val dateString = birthday.nextOccurrence().toString(dateFormat)
+		val dateString = context.formatFutureDate(birthday.nextOccurrence())
 		var age = 0
 		if (birthday.year > 0) {
 			age = Years.yearsBetween(birthday.asDate(), birthday.nextOccurrence()).years

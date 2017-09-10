@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.markormesher.birthdayreminder.data.DbHelper
 import uk.co.markormesher.birthdayreminder.extensions.checkPermissions
 import uk.co.markormesher.birthdayreminder.extensions.requestPermissions
+
+
 
 val PERMISSIONS = arrayOf(
 		Manifest.permission.READ_CONTACTS
@@ -58,7 +61,9 @@ class MainActivity: AppCompatActivity() {
 		permission_request_btn.setOnClickListener { requestPermissions(PERMISSIONS) }
         first_sync_btn.setOnClickListener { startService(Intent(this, BirthdayScannerService::class.java)) }
 
-        birthday_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+		val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        birthday_list.layoutManager = layoutManager
+        birthday_list.addItemDecoration(DividerItemDecoration(birthday_list.context, layoutManager.orientation))
 		birthday_list.adapter = listAdapter
 
         showAppropriateContentPane()
