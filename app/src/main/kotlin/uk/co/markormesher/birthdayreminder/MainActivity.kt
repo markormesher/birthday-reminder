@@ -37,6 +37,8 @@ class MainActivity: AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		initView()
+
+		sendBroadcast(Intent(this, AlarmSetterReceiver::class.java))
 	}
 
 	override fun onResume() {
@@ -71,11 +73,6 @@ class MainActivity: AppCompatActivity() {
 		when (item?.itemId) {
 			R.id.menu_rescan -> {
 				startService(Intent(this, BirthdayScannerService::class.java))
-				return true
-			}
-
-			R.id.menu_settings -> {
-                startService(Intent(this, ReminderService::class.java))
 				return true
 			}
 		}

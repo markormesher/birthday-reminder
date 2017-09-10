@@ -18,7 +18,7 @@ class ReminderService: IntentService("ReminderService") {
 
     private val notificationManager by lazy { getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
     private var notificationCounter = 141500
-    private val reminderThresholds = arrayOf(0, 1, 7)
+    private val reminderThresholds = arrayOf(0, 1, 2, 7, 14)
 
     override fun onHandleIntent(intent: Intent?) {
         thread {

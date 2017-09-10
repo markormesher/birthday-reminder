@@ -4,6 +4,7 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		package="uk.co.markormesher.birthdayreminder">
 
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 	<uses-permission android:name="android.permission.READ_CONTACTS"/>
 
 	<application
@@ -30,6 +31,12 @@
 		<service
 				android:name=".ReminderService"
 				android:exported="false"/>
+
+		<receiver android:name=".AlarmSetterReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED"/>
+			</intent-filter>
+		</receiver>
 
 	</application>
 
