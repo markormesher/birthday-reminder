@@ -16,7 +16,7 @@
 	<string name="no_birthdays_msg">No birthdays loaded yet.</string>
 	<string name="scan_for_birthdays_btn">Scan Now</string>
 
-	<string name="birthday_detail_with_age">%1$s (will be %2$d)</string>
+	<string name="birthday_detail_with_age">%1$s (%2$s)</string>
 	<string name="birthday_detail_without_age">%s</string>
 
 	<string name="future_date_0_days">today</string>

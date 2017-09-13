@@ -19,3 +19,11 @@ fun Context.formatFutureDate(date: DateTime, capitalise: Boolean = true): String
         output
     }
 }
+
+fun formatNumberWithOrdinal(number: Int): String {
+    val suffixes = arrayOf("th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th")
+    return when (number % 100) {
+        11, 12, 13 -> number.toString() + "th"
+        else -> number.toString() + suffixes[number % 10]
+    }
+}

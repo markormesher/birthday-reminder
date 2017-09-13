@@ -32,7 +32,7 @@ class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<Bi
 
 		holder.titleView.text = birthday.name
 		if (age > 0) {
-			holder.detailView.text = context.getString(R.string.birthday_detail_with_age, dateString, age)
+			holder.detailView.text = context.getString(R.string.birthday_detail_with_age, dateString, formatNumberWithOrdinal(age))
         } else {
 			holder.detailView.text = context.getString(R.string.birthday_detail_without_age, dateString)
         }
