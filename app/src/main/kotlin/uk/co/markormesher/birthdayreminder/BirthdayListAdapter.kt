@@ -17,7 +17,7 @@ class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<Bi
 
 	override fun getItemCount() = birthdays.size
 
-	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BirthdayListAdapter.BirthdayViewHolder {
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BirthdayListAdapter.BirthdayViewHolder {
 		return BirthdayViewHolder(layoutInflater.inflate(R.layout.list_item_birthday, parent, false))
 	}
 
