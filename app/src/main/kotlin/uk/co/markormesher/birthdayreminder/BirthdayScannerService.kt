@@ -44,7 +44,7 @@ class BirthdayScannerService: IntentService("BirthdayScannerService") {
 
 		val cursor = application.contentResolver.query(uri, projection, where, null, null)
 		val birthdays = ArrayList<Birthday>()
-		if (cursor.moveToFirst()) {
+		if (cursor?.moveToFirst() == true) {
 			val idIndex = cursor.getColumnIndexOrThrow(idKey)
 			val nameIndex = cursor.getColumnIndexOrThrow(displayNameKey)
 			val birthdayIndex = cursor.getColumnIndexOrThrow(startDateKey)
@@ -58,7 +58,7 @@ class BirthdayScannerService: IntentService("BirthdayScannerService") {
 				birthdays.add(Birthday(id, name, date, month, year))
 			} while (cursor.moveToNext())
 		}
-		cursor.close()
+		cursor?.close()
 		return birthdays
 	}
 
