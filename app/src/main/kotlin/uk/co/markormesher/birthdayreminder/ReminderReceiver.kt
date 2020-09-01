@@ -12,7 +12,6 @@ import org.joda.time.Days
 import org.joda.time.Years
 import uk.co.markormesher.birthdayreminder.data.Birthday
 import uk.co.markormesher.birthdayreminder.data.DbHelper
-import uk.co.markormesher.birthdayreminder.extensions.log
 import kotlin.concurrent.thread
 
 class ReminderReceiver : BroadcastReceiver() {
@@ -26,7 +25,6 @@ class ReminderReceiver : BroadcastReceiver() {
     private var notificationCounter = 141500
 
     override fun onReceive(context: Context, intent: Intent) {
-        log("Received")
         thread {
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
