@@ -18,11 +18,13 @@ import uk.co.markormesher.birthdayreminder.extensions.checkPermissions
 import uk.co.markormesher.birthdayreminder.extensions.requestPermissions
 
 
-val PERMISSIONS = arrayOf(
-		Manifest.permission.READ_CONTACTS
-)
-
 class MainActivity: AppCompatActivity() {
+
+	companion object {
+		private val PERMISSIONS = arrayOf(
+				Manifest.permission.READ_CONTACTS
+		)
+	}
 
     private val listAdapter = BirthdayListAdapter(this)
 	private var birthdaysLoaded = false
@@ -74,7 +76,7 @@ class MainActivity: AppCompatActivity() {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when (item?.itemId) {
+		when (item.itemId) {
 			R.id.menu_rescan -> {
 				startService(Intent(this, BirthdayScannerService::class.java))
 				return true

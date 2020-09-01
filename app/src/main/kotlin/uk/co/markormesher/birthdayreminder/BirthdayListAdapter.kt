@@ -17,11 +17,11 @@ class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<Bi
 
 	override fun getItemCount() = birthdays.size
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BirthdayListAdapter.BirthdayViewHolder {
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BirthdayViewHolder {
 		return BirthdayViewHolder(layoutInflater.inflate(R.layout.list_item_birthday, parent, false))
 	}
 
-	override fun onBindViewHolder(holder: BirthdayListAdapter.BirthdayViewHolder, position: Int) {
+	override fun onBindViewHolder(holder: BirthdayViewHolder, position: Int) {
 		val birthday = birthdays[position]
 
 		val dateString = context.formatFutureDate(birthday.nextOccurrence())
@@ -32,7 +32,7 @@ class BirthdayListAdapter(private val context: Context): RecyclerView.Adapter<Bi
 
 		holder.titleView.text = birthday.name
 		if (age > 0) {
-			holder.detailView.text = context.getString(R.string.birthday_detail_with_age, dateString, formatNumberWithOrdinal(age))
+			holder.detailView.text = context.getString(R.string.birthday_detail_with_age, dateString, age.formatWithOrdinal())
         } else {
 			holder.detailView.text = context.getString(R.string.birthday_detail_without_age, dateString)
         }
