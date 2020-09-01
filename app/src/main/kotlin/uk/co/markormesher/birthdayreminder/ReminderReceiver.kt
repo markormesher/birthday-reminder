@@ -1,9 +1,9 @@
 package uk.co.markormesher.birthdayreminder
 
-import android.app.IntentService
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,37 +12,45 @@ import org.joda.time.Days
 import org.joda.time.Years
 import uk.co.markormesher.birthdayreminder.data.Birthday
 import uk.co.markormesher.birthdayreminder.data.DbHelper
+import uk.co.markormesher.birthdayreminder.extensions.log
 import kotlin.concurrent.thread
 
-class ReminderService: IntentService("ReminderService") {
+class ReminderReceiver : BroadcastReceiver() {
 
-    private val notificationManager by lazy { getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
+    companion object {
+        private val REMINDER_THRESHOLDS = arrayOf(0, 1, 2, 7, 14)
+        private const val NOTIFICATION_CHANNEL_ID = "channel_01"
+        private const val NOTIFICATION_CHANNEL_NAME = "Birthday Reminders"
+    }
+
     private var notificationCounter = 141500
-    private val reminderThresholds = arrayOf(0, 1, 2, 7, 14)
 
-    override fun onHandleIntent(intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
+        log("Received")
         thread {
-            prepareForNotifications()
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            prepareForNotifications(notificationManager)
 
             val now = DateTime.now()
-            val birthdays = DbHelper.getHelper(applicationContext).getBirthdays()
+            val birthdays = DbHelper.getHelper(context).getBirthdays()
             birthdays.forEach { birthday ->
                 val daysUntilNextOccurrence = Days.daysBetween(now, birthday.nextOccurrence()).days
-                if (reminderThresholds.contains(daysUntilNextOccurrence)) {
-                    createNotification(birthday)
+                if (REMINDER_THRESHOLDS.contains(daysUntilNextOccurrence)) {
+                    createNotification(context, notificationManager, birthday)
                 }
             }
         }
     }
 
-    private fun prepareForNotifications() {
+    private fun prepareForNotifications(notificationManager: NotificationManager) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel("channel_01", "Birthday Reminders", NotificationManager.IMPORTANCE_HIGH)
+            val notificationChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(notificationChannel)
         }
     }
 
-    private fun createNotification(birthday: Birthday) {
+    private fun createNotification(context: Context, notificationManager: NotificationManager, birthday: Birthday) {
         val now = DateTime.now()
         val daysUntilNextOccurrence = Days.daysBetween(now, birthday.nextOccurrence()).days
         var age = 0
@@ -51,13 +59,13 @@ class ReminderService: IntentService("ReminderService") {
         }
 
         val notificationBuilder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(applicationContext, "channel_01")
+            Notification.Builder(context, NOTIFICATION_CHANNEL_ID)
         } else {
             @Suppress("DEPRECATION")
-            Notification.Builder(applicationContext)
+            Notification.Builder(context)
         }
 
-        val title = "${birthday.name}'s birthday is ${formatFutureDate(birthday.nextOccurrence(), false)}"
+        val title = "${birthday.name}'s birthday is ${context.formatFutureDate(birthday.nextOccurrence(), false)}"
 
         val subtitle = if (age > 0) {
             if (daysUntilNextOccurrence == 0) {
@@ -77,5 +85,4 @@ class ReminderService: IntentService("ReminderService") {
 
         notificationManager.notify(++notificationCounter, notification)
     }
-
 }

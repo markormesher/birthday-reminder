@@ -5,6 +5,7 @@
 		package="uk.co.markormesher.birthdayreminder">
 
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
 	<uses-permission android:name="android.permission.READ_CONTACTS"/>
 
 	<application
@@ -27,13 +28,24 @@
 				android:name=".BirthdayScannerService"
 				android:exported="false"/>
 
-		<service
-				android:name=".ReminderService"
+		<receiver
+				android:name=".ReminderReceiver"
+				android:process=":remote"
 				android:exported="false"/>
 
-		<receiver android:name=".AlarmSetterReceiver">
+		<receiver
+				android:name=".AlarmSetterReceiver"
+				android:process=":remote"
+				android:exported="false">
 			<intent-filter>
+				<!-- boot and reboot -->
 				<action android:name="android.intent.action.BOOT_COMPLETED"/>
+				<action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+
+				<!-- app upgrade -->
+				<action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+
+				<!-- time/timezone changed -->
 				<action android:name="android.intent.action.TIME_SET"/>
 				<action android:name="android.intent.action.TIMEZONE_CHANGED"/>
 			</intent-filter>
